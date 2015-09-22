@@ -13,7 +13,7 @@ MyApp.UserItemView = Mn.ItemView.extend({
 	
 	events: {
 		'click': 'highlightName',
-		"click button": function(){ alert("delete button was clicked"); }
+		'click button.js-delete': 'deleteClicked'
 	},
 	
 	highlightName: function(e){
@@ -23,7 +23,9 @@ MyApp.UserItemView = Mn.ItemView.extend({
 	
 	deleteClicked : function(e) {
 		e.stopPropagation();
-		alert("delete button was clicked");
+		//alert('delete button was clicked');
+		//this.model.collection.remove(this.model);
+		this.trigger("user:delete", this.model);
 	}
 });
 
@@ -47,6 +49,7 @@ MyApp.on('before:start', function(options) {
 });
 
 MyApp.on('start', function(options) {
+	// controller's function
 	var users = new MyApp.UserCollection([ {
 		name : 'Bob',
 		email : 'Brigham',
@@ -63,6 +66,10 @@ MyApp.on('start', function(options) {
 
 	var usersView = new MyApp.UsersView({
 		collection : users
+	});
+
+	usersView.on("childview:user:delete", function(childView, model){
+		users.remove(model);
 	});
 
 	MyApp.regions.main.show(usersView);
