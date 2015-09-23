@@ -7,8 +7,8 @@ CREATE TABLE user (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into user(name,email,password, role) values ('dave','dave@abc.com','1234', 'user');
-insert into user(name,email,password, role) values ('admin','admin@abc.com','1234', 'admin');
+insert into user(id,name,email,password, role) values (1,'dave','dave@abc.com','1234', 'user');
+insert into user(id,name,email,password, role) values (2,'admin','admin@abc.com','1234', 'admin');
 
 CREATE TABLE customer (
   id INT(10) UNSIGNED NOT NULL auto_increment,
