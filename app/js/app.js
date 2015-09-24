@@ -29,10 +29,8 @@ MyApp.UserItemView = Mn.ItemView.extend({
         e.preventDefault();
         e.stopPropagation();
 //        this.trigger("user:show", this.model);
-        var userView = new MyApp.UserShowView({
-        	model : this.model
-        });
-        MyApp.regions.main.show(userView);
+        this.trigger("user:show", this.model.get('id'));
+        
     },
       
 //	showContact: function(model){
@@ -99,9 +97,19 @@ var routeController = {
 		usersView.on("childview:user:show", function(childView, model){
 	        //ContactManager.ContactsApp.Show.Controller.showContact(model);
 			console.log('user:show model=' + model);
+			var userView = new MyApp.UserShowView({
+	        	model : model
+	        });
+	        MyApp.regions.main.show(userView);
 	    });
 	    
 		MyApp.regions.main.show(usersView);
+	},
+
+	showUser : function(){
+		console.log('showUser');
+		//.trigger("contact:show", model.get("id"));
+		//MyApp.trigger("user:show", model);
 	}
 }
 
@@ -127,6 +135,10 @@ MyApp.on('before:start', function(options) {
 
 MyApp.on('start', function(options) {
 
+	new MyApp.Router({
+		controller: routeController
+	});
+	
 	if (Backbone.history) {
 		//Backbone.history.start();
 		Backbone.history.start({pushState: true});

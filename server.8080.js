@@ -23,10 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/app/')));
 
-app.all('/*', midware.header);
-
 //API
 require('./api/crud')(app);
+
+app.all('/*', midware.header);
+
+
 
 http.createServer(app).listen(port, '0.0.0.0', function(){
 	console.log('Server start at localhost:' + port);
