@@ -69,7 +69,7 @@ module.exports = function(app) {
 		
 		db.connect(function(err, connection){
 			// req.body like  {title: 'test'}
-			connection.query('UPDATE ?? SET ? WHERE id = ?', [table, doc , id ], function(err, result) {
+			var query = connection.query('UPDATE ?? SET ? WHERE id = ?', [table, doc , id ], function(err, result) {
 				connection.release();
 				
 				if (!err) {
@@ -78,6 +78,7 @@ module.exports = function(app) {
 					return res.status(500).send({ message : err });
 				}
 			});
+			console.log(query.sql);
 		});
 	});
 

@@ -35,7 +35,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#about">About</a></li>
-				<li><a href="#contact">Contact</a></li>
+				<li><a href="#user">User</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -96,8 +96,18 @@
 
 <script type="text/template" id="user-view">
 	<h1><%- name %> <%- role %></h1>
+	<a href="#user/<%- id %>/edit" class="btn btn-small js-edit">
+        <i class="icon-pencil"></i>
+        Edit
+    </a>
+
 	<p><strong>email:</strong> <%- role %></p>
 </script>
+
+    <script type="text/template" id="missing-user-view">
+      <div class="alert alert-error">This user doesn't exist !</div>
+    </script>
+    
     
 <script type="text/template" id="user-list-item">
 	<td><%- name %></td>
@@ -120,6 +130,10 @@
       </td>
 </script>
 
+    <script type="text/template" id="missing-contact-view">
+      <div class="alert alert-error">This contact doesn't exist !</div>
+    </script>
+
     <script type="text/template" id="user-list">
       <thead>
         <tr>
@@ -133,14 +147,45 @@
       </tbody>
     </script>
     
-	
+	<script type="text/template" id="user-form">
+      <h1>Edit <%- name %> </h1>
+      <form>
+        <div class="control-group">
+          <label for="user-name" class="control-label">Name:</label>
+          <input id="user-name" name="name" type="text" value="<%- name %>"/>
+        </div>
+        <div class="control-group">
+          <label for="user-email" class="control-label">Phone:</label>
+          <input id="user-email" name="email" type="text" value="<%- email %>"/>
+        </div>
+        <div class="control-group">
+          <label for="user-role" class="control-label">role:</label>
+          <input id="user-role" name="role" type="text" value="<%- role %>"/>
+        </div>
+        <button class="btn js-submit">Save</button>
+      </form>
+    </script>
+    
 	<script src="lib/jquery/jquery.js"></script>
 	<script src="lib/bootstrap/bootstrap.js"></script>
 	<script src="lib/underscore/underscore.js"></script>
 	<script src="lib/backbone/backbone.js"></script>
 	<script src="lib/backbone/backbone.marionette.js"></script>
-
+	<script src="lib/backbone/backbone.syphon.js"></script>
+	
 	<script src="js/app.js"></script>
-		
+	<script src="js/entities/user.js"></script>
+	
+	<script src="js/apps/user/router.js"></script>
+	<script src="js/apps/user/list/controller.js"></script>
+	<script src="js/apps/user/list/view.js"></script>
+	<script src="js/apps/user/show/controller.js"></script>
+	<script src="js/apps/user/show/view.js"></script>	
+	<script src="js/apps/user/edit/controller.js"></script>
+	<script src="js/apps/user/edit/view.js"></script>	
+	
+	<script type="text/javascript">
+      AppManager.start();
+    </script>
 </body>
 </html>
